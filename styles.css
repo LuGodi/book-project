@@ -1,0 +1,76 @@
+:root {
+  --border-radius: 8px;
+  --library-card-bg-color: white;
+  --library-card-font-color: black;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, sans-serif;
+  box-sizing: border-box;
+}
+body {
+  background-color: rgb(189, 243, 189);
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: solid black 3px;
+}
+.header button {
+  background-color: black;
+  color: white;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  border: solid 1px white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  height: 120px;
+  width: 90px;
+  font-family: "Bebas Neue", sans-serif;
+  cursor: pointer;
+}
+
+div.container {
+  border: 3px solid white;
+  border-radius: 8px;
+  margin: 3px auto;
+}
+
+div.library {
+  border: 3px solid black;
+  border-top: none;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  display: flex;
+  min-height: 70vh;
+  gap: 2rem;
+  padding: 30px;
+}
+
+div.library div.card {
+  height: 230px;
+  width: 170px;
+  background-color: var(--library-card-bg-color);
+  color: var(--library-card-font-color);
+  border-radius: 3px;
+  border: 3px solid black;
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto", sans-serif;
+}
+div.card-header {
+  border-bottom: 3px solid black;
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  font-family: "Roboto", sans-serif;
+}

@@ -16,7 +16,9 @@ function Book(title, author, pages, read) {
 const book1 = new Book("Midnight Library", "Matt Huang", "409", true);
 const book2 = new Book("Harry Potter", "Jk Rowling", "200", false);
 const book3 = new Book("Im tired", "myself", "1", true);
-
+//TODO ability to set background-color for book
+//TODO define layout for cards
+//TODO get unsplash images
 console.log(book1);
 console.log(book1.info());
 
@@ -31,10 +33,11 @@ function displayBooks() {
   for (let book of myLibrary) {
     console.log(book);
     const bookElement = document.createElement("div");
-    const nameParagraph = document.createElement("p");
-
-    nameParagraph.textContent = book.title;
-    bookElement.appendChild(nameParagraph);
+    const cardHeader = document.createElement("div");
+    cardHeader.className = "card-header";
+    cardHeader.textContent = book.title;
+    bookElement.appendChild(cardHeader);
+    bookElement.className = "card";
     myDivs.push(bookElement);
   }
   library.append(...myDivs);
