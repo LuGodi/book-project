@@ -1,6 +1,8 @@
 const myLibrary = [];
 const library = document.querySelector(".library");
 const addBookButton = document.querySelector(".add-book");
+const bookModal = document.querySelector("#add-book-modal");
+const closeModal = document.querySelector("#close-modal-button");
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -13,6 +15,11 @@ function Book(title, author, pages, read) {
     }`;
   };
 }
+
+addBookButton.addEventListener("click", () => bookModal.showModal());
+closeModal.addEventListener("click", () => bookModal.close());
+
+function addBook() {}
 
 const book1 = new Book("Midnight Library", "Matt Huang", "409", true);
 const book2 = new Book("Harry Potter", "Jk Rowling", "200", false);

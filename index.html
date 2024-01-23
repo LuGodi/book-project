@@ -25,38 +25,42 @@
       </div>
     </div>
 
-    <dialog open id="add-book-modal">
-      <h2>Add a new Book</h2>
-      <form>
-        <div>
-          <label for="title">Title</label>
-          <input
-            id="title"
-            type="text"
-            name="title"
-            required
-            placeholder="Twilight" />
-        </div>
-        <div>
-          <label for="author">Author</label>
-          <input type="text" id="author" name="author" />
-        </div>
-        <div>
-          <label for="pages">How many pages?</label>
-          <input type="number" id="pages" name="pages" />
-        </div>
-        <div>
-          <label for="pages-read">How many pages have you read?</label>
-          <input type="number" name="pages-read" id="pages-read" />
-        </div>
-
-        <div class="book-color">
-          <label for="color">Pick a color for the book</label>
-          <span class="color-picker"></span>
-          <input type="color" name="color" id="color" />
-        </div>
-        <div class="form-buttons"><button type="submit">Submit</button></div>
-      </form>
+    <dialog id="add-book-modal">
+      <div class="dialog-border">
+        <h2>Add a new Book</h2>
+        <form>
+          <div>
+            <label for="title">Title</label>
+            <input
+              id="title"
+              type="text"
+              name="title"
+              required
+              placeholder="Twilight" />
+          </div>
+          <div>
+            <label for="author">Author</label>
+            <input type="text" id="author" name="author" />
+          </div>
+          <div>
+            <label for="pages">How many pages?</label>
+            <input type="number" id="pages" name="pages" />
+          </div>
+          <div>
+            <label for="pages-read">How many pages have you read?</label>
+            <input type="number" name="pages-read" id="pages-read" />
+          </div>
+          <div class="book-color">
+            <label for="color">Pick a color for the book</label>
+            <span class="color-picker"></span>
+            <input type="color" name="color" id="color" />
+          </div>
+          <div class="form-buttons">
+            <button type="submit">Submit</button
+            ><button id="close-modal-button">Close</button>
+          </div>
+        </form>
+      </div>
     </dialog>
   </body>
 </html>
