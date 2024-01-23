@@ -60,6 +60,14 @@ input#color {
   border: none;
   outline: none;
 }
+.checkbox-control {
+  display: flex;
+  gap: 10px;
+}
+.checkbox-control input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
 /* TODO STYLE THE COLOR PICKER TO BE ROUND */
 /* span.color-picker {
   border: 3px solid black;
