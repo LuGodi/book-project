@@ -1,5 +1,6 @@
 const myLibrary = [];
 const library = document.querySelector(".library");
+const addBookButton = document.querySelector(".add-book");
 
 function Book(title, author, pages, read) {
   this.title = title;

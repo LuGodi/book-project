@@ -2,6 +2,7 @@
   --border-radius: 8px;
   --library-card-bg-color: white;
   --library-card-font-color: black;
+  --page-bg-color: rgb(189, 243, 189);
 }
 
 * {
@@ -11,10 +12,57 @@
   box-sizing: border-box;
 }
 body {
-  background-color: rgb(189, 243, 189);
+  background-color: var(--page-bg-color);
   min-height: 100vh;
 }
 
+#add-book-modal {
+  background-color: var(--page-bg-color);
+  box-shadow: 0px 5px 3px 0px rgb(83, 109, 83);
+  border: 3px solid black;
+  min-width: 400px;
+  min-height: 300px;
+  margin: 0 auto;
+}
+#add-book-modal form {
+  display: flex;
+  flex-direction: column;
+  padding: 80px;
+  gap: 20px;
+  font-family: "Bebas Neue", sans-serif;
+}
+form fieldset {
+  outline: none;
+  border: 1px solid black;
+  padding: 30px;
+}
+form h1,
+h2,
+h3,
+h4,
+legend {
+  font-family: "Bebas Neue", sans-serif;
+}
+#add-book-modal label {
+  display: flex;
+  gap: 1rem;
+  font-family: "Bebas Neue", sans-serif;
+}
+input[type="number"] {
+  width: 25%;
+}
+input#color {
+  border: none;
+  outline: none;
+}
+/* TODO STYLE THE COLOR PICKER TO BE ROUND */
+/* span.color-picker {
+  border: 3px solid black;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: inline-block;
+} */
 .header {
   display: flex;
   justify-content: flex-end;
@@ -37,6 +85,9 @@ body {
   font-family: "Bebas Neue", sans-serif;
   cursor: pointer;
 }
+.header button:first-of-type {
+  margin-right: auto;
+}
 
 div.container {
   border: 3px solid white;
@@ -54,7 +105,7 @@ div.library {
   gap: 2rem;
   padding: 30px;
 }
-
+/* add progress bar to books */
 div.library div.card {
   height: 230px;
   width: 170px;
@@ -68,7 +119,7 @@ div.library div.card {
 }
 div.card-header {
   border-bottom: 3px solid black;
-  min-height: 2rem;
+  min-height: 2.5rem;
   display: flex;
   align-items: center;
   padding: 3px;
