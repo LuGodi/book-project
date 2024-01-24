@@ -1,4 +1,5 @@
 const myLibrary = [];
+const myLibraryCardElements = [];
 const library = document.querySelector(".library");
 const addBookButton = document.querySelector(".add-book");
 const bookModal = document.querySelector("#add-book-modal");
@@ -49,7 +50,7 @@ function readForm(e) {
     bookReadBool,
     bookColorChoice
   );
-  addBookToLibrary(newBook);
+  addBook(newBook);
   displayBooks();
   e.preventDefault();
   addBookForm.reset();
@@ -57,35 +58,64 @@ function readForm(e) {
 }
 //get values from the form
 
-function addBook() {}
-
-const book1 = new Book("Midnight Library", "Matt Huang", "409", true);
-const book2 = new Book("Harry Potter", "Jk Rowling", "200", false);
-const book3 = new Book("Im tired", "myself", "1", true);
+const book1 = new Book("Midnight Library", "Matt Huang", "409", "409", true);
+const book2 = new Book("Harry Potter", "Jk Rowling", "200", "100", false);
+const book3 = new Book("Im tired", "myself", "1", "1", true);
 //TODO ability to set background-color for book
 //TODO define layout for cards
 //TODO get unsplash images
 
+function addBook(book) {
+  addBookToLibrary(book);
+  createBookCard(book);
+}
 function addBookToLibrary(book) {
   myLibrary.push(book);
 }
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-addBookToLibrary(book3);
-function displayBooks() {
-  const myDivs = [];
-  for (let book of myLibrary) {
-    console.log(book);
-    const bookElement = document.createElement("div");
-    const cardHeader = document.createElement("div");
-    cardHeader.className = "card-header";
-    cardHeader.textContent = book.title;
-    bookElement.appendChild(cardHeader);
-    bookElement.className = "card";
-    myDivs.push(bookElement);
+
+addBook(book1);
+addBook(book2);
+addBook(book3);
+function createBookCard(book) {
+  function createIconSpan(value, iconText) {
+    const spanContainer = document.createElement("span");
+    spanContainer.className = "card-footer-icon";
+    spanContainer.textContent = value;
+    const spanIcon = document.createElement("span");
+    spanIcon.className = "material-symbols-outlined";
+    spanIcon.textContent = iconText;
+
+    spanContainer.appendChild(spanIcon);
+    return spanContainer;
   }
-  library.replaceChildren(...myDivs);
+  function addBookElementToCardLibrary(bookElement) {
+    myLibraryCardElements.push(bookElement);
+  }
+  const bookElement = document.createElement("div");
+  const cardHeader = document.createElement("div");
+  const cardContent = document.createElement("div");
+  const cardFooter = document.createElement("div");
+
+  cardHeader.className = "card-header";
+  cardContent.className = "card-content";
+  cardFooter.className = "card-footer";
+  cardFooter.append(
+    createIconSpan(book.readPages, "bookmark_add"),
+    createIconSpan(book.pages, "auto_stories")
+  );
+  cardHeader.textContent = book.title;
+  bookElement.appendChild(cardHeader);
+  bookElement.appendChild(cardContent);
+  bookElement.appendChild(cardFooter);
+
+  bookElement.className = "card";
+  addBookElementToCardLibrary(bookElement);
 }
+
+function displayBooks() {
+  library.replaceChildren(...myLibraryCardElements);
+}
+
 displayBooks();
 // qual a diferença do return de Object.getPrototypeOf(Player) pra Player.prototype ? toda
 //Player.prototype eh uma propriedade da funcao, todas as instancias criadas atraves do constructor player using new vao ter uma referencia a Player.prototype
