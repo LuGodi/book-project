@@ -28,7 +28,7 @@
     <dialog id="add-book-modal">
       <div class="dialog-border">
         <h2>Add a new Book</h2>
-        <form action="/index.html" method="get">
+        <form action="/" method="get" id="add-book-form">
           <div>
             <label for="title">Title</label>
             <input
@@ -51,16 +51,45 @@
             <input type="number" name="pages_read" id="pages-read" />
           </div>
           <div class="book-color">
-            <label for="color">Pick a color for the book</label>
-            <span class="color-picker"></span>
-            <input type="color" name="color" id="color" />
+            <fieldset class="book-color-fieldset">
+              <legend>Pick a color for the book</legend>
+              <div>
+                <label for="book-color-blue">Blue</label>
+                <input
+                  type="radio"
+                  name="book-color"
+                  value="blue"
+                  id="book-color-blue" />
+              </div>
+              <div>
+                <label for="book-color-green">Green</label
+                ><input
+                  type="radio"
+                  value="green"
+                  name="book-color"
+                  id="book-color-green"
+                  checked />
+              </div>
+              <div>
+                <label for="book-color-pink">Pink</label
+                ><input
+                  type="radio"
+                  name="book-color"
+                  value="pink"
+                  id="book-color-pink" />
+              </div>
+            </fieldset>
           </div>
           <div class="checkbox-control">
             <label for="read-checkbox">Did you finish the book?</label>
-            <input type="checkbox" name="read_status" id="read-checkbox" />
+            <input
+              type="checkbox"
+              name="read_status"
+              id="read-checkbox"
+              value="read-book" />
           </div>
           <div class="form-buttons">
-            <button type="submit">Submit</button
+            <button type="button" id="submit-button">Submit</button
             ><button id="close-modal-button">Close</button>
           </div>
         </form>

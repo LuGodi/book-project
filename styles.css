@@ -64,6 +64,13 @@ input#color {
   display: flex;
   gap: 10px;
 }
+.book-color-fieldset > div {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
 .checkbox-control input[type="checkbox"] {
   width: 20px;
   height: 20px;
