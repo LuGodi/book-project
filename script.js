@@ -13,7 +13,7 @@ function Book(title, author, pages, readPages, read, color) {
   this.pages = pages;
   this.readPages = readPages;
   this.read = read;
-  this.bookColor = color ?? "white";
+  this.bookColor = color;
   this.info = function () {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${
       this.read ? "read" : "not read yet"
@@ -91,11 +91,17 @@ function createBookCard(book) {
   function addBookElementToCardLibrary(bookElement) {
     myLibraryCardElements.push(bookElement);
   }
+  function setBookColor(bookObject, bookElement) {
+    const rootEl = document.querySelector(":root");
+    const chosenColor = getComputedStyle(rootEl).getPropertyValue(
+      `--book-bg-color-${bookObject.bookColor}`
+    );
+    bookElement.style.setProperty("--library-card-bg-color", chosenColor);
+  }
   const bookElement = document.createElement("div");
   const cardHeader = document.createElement("div");
   const cardContent = document.createElement("div");
   const cardFooter = document.createElement("div");
-
   cardHeader.className = "card-header";
   cardContent.className = "card-content";
   cardFooter.className = "card-footer";
@@ -109,6 +115,7 @@ function createBookCard(book) {
   bookElement.appendChild(cardFooter);
 
   bookElement.className = "card";
+  setBookColor(book, bookElement);
   addBookElementToCardLibrary(bookElement);
 }
 
