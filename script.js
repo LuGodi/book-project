@@ -21,62 +21,11 @@ function Book(title, author, pages, readPages, read, color) {
   };
 }
 
-addBookButton.addEventListener("click", () => bookModal.showModal());
-closeModal.addEventListener("click", () => bookModal.close());
-submitButtonModal.addEventListener("click", readForm);
-//implement form validation
-function readForm(e) {
-  const bookTitle = document.querySelector("#title").value;
-  const bookAuthor = document.querySelector("#author").value;
-  const bookTotalPages = document.querySelector("#pages").value;
-  const bookReadPages = document.querySelector("#pages-read").value;
-  const bookColorChoice = document.querySelector(
-    '[name="book-color"]:checked'
-  ).value;
-  const bookReadBool = document.querySelector("#read-checkbox").checked;
-  console.log(
-    bookTitle,
-    bookAuthor,
-    bookTotalPages,
-    bookReadPages,
-    bookColorChoice,
-    bookReadBool
-  );
-  const newBook = new Book(
-    bookTitle,
-    bookAuthor,
-    bookTotalPages,
-    bookReadPages,
-    bookReadBool,
-    bookColorChoice
-  );
-  addBook(newBook);
-  displayBooks();
-  e.preventDefault();
-  addBookForm.reset();
-  bookModal.close();
-}
-//get values from the form
-
-const book1 = new Book("Midnight Library", "Matt Huang", "409", "409", true);
-const book2 = new Book("Harry Potter", "Jk Rowling", "200", "100", false);
-const book3 = new Book("Im tired", "myself", "1", "1", true);
-//TODO ability to set background-color for book
-//TODO define layout for cards
-//TODO get unsplash images
-
-function addBook(book) {
-  addBookToLibrary(book);
-  createBookCard(book);
-}
-function addBookToLibrary(book) {
-  myLibrary.push(book);
-}
-
-addBook(book1);
-addBook(book2);
-addBook(book3);
-function createBookCard(book) {
+Book.prototype.createBookCard = function () {
+  // function test(par) {
+  //   console.log(par);
+  // }
+  // test(this);
   function createIconSpan(value, iconText) {
     const spanContainer = document.createElement("span");
     spanContainer.className = "card-footer-icon";
@@ -106,22 +55,81 @@ function createBookCard(book) {
   cardContent.className = "card-content";
   cardFooter.className = "card-footer";
   cardFooter.append(
-    createIconSpan(book.readPages, "bookmark_add"),
-    createIconSpan(book.pages, "auto_stories")
+    createIconSpan(this.readPages, "bookmark_add"),
+    createIconSpan(this.pages, "auto_stories")
   );
-  cardHeader.textContent = book.title;
+  cardHeader.textContent = this.title;
   bookElement.appendChild(cardHeader);
   bookElement.appendChild(cardContent);
   bookElement.appendChild(cardFooter);
 
   bookElement.className = "card";
-  setBookColor(book, bookElement);
+  setBookColor(this, bookElement);
   addBookElementToCardLibrary(bookElement);
-}
-
+};
+Book.prototype.addBookToLibrary = function () {
+  myLibrary.push(this);
+};
+Book.prototype.addBook = function () {
+  console.log(this);
+  this.addBookToLibrary();
+  this.createBookCard();
+};
 function displayBooks() {
   library.replaceChildren(...myLibraryCardElements);
 }
+
+addBookButton.addEventListener("click", () => bookModal.showModal());
+closeModal.addEventListener("click", () => bookModal.close());
+submitButtonModal.addEventListener("click", readForm);
+//implement form validation
+function readForm(e) {
+  const bookTitle = document.querySelector("#title").value;
+  const bookAuthor = document.querySelector("#author").value;
+  const bookTotalPages = document.querySelector("#pages").value;
+  const bookReadPages = document.querySelector("#pages-read").value;
+  const bookColorChoice = document.querySelector(
+    '[name="book-color"]:checked'
+  ).value;
+  const bookReadBool = document.querySelector("#read-checkbox").checked;
+  console.log(
+    bookTitle,
+    bookAuthor,
+    bookTotalPages,
+    bookReadPages,
+    bookColorChoice,
+    bookReadBool
+  );
+  const newBook = new Book(
+    bookTitle,
+    bookAuthor,
+    bookTotalPages,
+    bookReadPages,
+    bookReadBool,
+    bookColorChoice
+  );
+  newBook.addBook();
+  displayBooks();
+  e.preventDefault();
+  addBookForm.reset();
+  bookModal.close();
+}
+//get values from the form
+
+const book1 = new Book("Midnight Library", "Matt Huang", "409", "409", true);
+const book2 = new Book("Harry Potter", "Jk Rowling", "200", "100", false);
+const book3 = new Book("Im tired", "myself", "1", "1", true);
+//DONE ability to set background-color for book
+//TODO set read status
+//TODO set data-attr to be able to refer to a book
+//TODO add ability to delete cards
+//TODO for each read card increment counter
+//TODO set 3 states for cards {read, not started yet, finished}
+//TODO define layout for cards
+
+book1.addBook();
+book2.addBook();
+book3.addBook();
 
 displayBooks();
 // qual a diferença do return de Object.getPrototypeOf(Player) pra Player.prototype ? toda
