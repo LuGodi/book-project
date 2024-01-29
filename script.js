@@ -11,7 +11,7 @@ function Book(title, author, pages, readPages, read, color) {
   this.author = author;
   this.pages = pages;
   this.readPages = readPages;
-  this.read = read;
+  this.read = false;
   this.bookColor = color;
   this.bookElement = undefined;
   this.dataAttr = undefined;
@@ -24,10 +24,6 @@ function Book(title, author, pages, readPages, read, color) {
 }
 
 Book.prototype.createBookCard = function () {
-  // function test(par) {
-  //   console.log(par);
-  // }
-  // test(this);
   function createIconSpan(value, iconText) {
     const spanContainer = document.createElement("span");
     spanContainer.className = "card-footer-icon";
@@ -59,6 +55,7 @@ Book.prototype.createBookCard = function () {
     createIconSpan(this.pages, "auto_stories")
   );
   cardHeader.textContent = this.title;
+  cardContent.textContent = this.read ? "Read" : "Not read yet";
   bookElement.appendChild(cardHeader);
   bookElement.appendChild(cardContent);
   bookElement.appendChild(cardFooter);
@@ -66,6 +63,9 @@ Book.prototype.createBookCard = function () {
   bookElement.className = "card";
   setBookColor(this, bookElement);
   this.bookElement = bookElement;
+};
+Book.prototype.readToggle = function () {
+  this.read = this.read === true ? false : true;
 };
 Book.prototype.addBookToLibrary = function () {
   myLibrary.push(this);
@@ -132,7 +132,7 @@ const book2 = new Book("Harry Potter", "Jk Rowling", "200", "100", false);
 const book3 = new Book("Im tired", "myself", "1", "1", true);
 //DONE ability to set background-color for book
 //TODO set read status
-//TODO set data-attr to be able to refer to a book
+//DONE set data-attr to be able to refer to a book
 //TODO add ability to delete cards
 //TODO for each read card increment counter
 //TODO set 3 states for cards {read, not started yet, finished}
