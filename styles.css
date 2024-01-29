@@ -181,6 +181,7 @@ div.card-header {
 }
 span.card-header-icon {
   align-self: flex-end;
+  cursor: pointer;
 }
 div.card-content {
   flex-grow: 1;

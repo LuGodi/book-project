@@ -5,6 +5,7 @@ const bookModal = document.querySelector("#add-book-modal");
 const closeModal = document.querySelector("#close-modal-button");
 const submitButtonModal = document.querySelector("#submit-button");
 const addBookForm = document.querySelector("#add-book-form");
+const removeButton = document.querySelectorAll(".card-header-icon");
 
 function Book(title, author, pages, readPages, read, color) {
   this.title = title;
@@ -59,7 +60,9 @@ Book.prototype.createBookCard = function () {
     createIconSpan(this.pages, "auto_stories")
   );
   cardHeader.textContent = this.title;
-  cardHeader.appendChild(createIconSpan("", "more_vert", false));
+  const headerOptionsIcon = createIconSpan("", "more_vert", false);
+  headerOptionsIcon.addEventListener("click", removeCard);
+  cardHeader.appendChild(headerOptionsIcon);
   cardContent.textContent = this.read ? "Read" : "Not read yet";
   bookElement.appendChild(cardHeader);
   bookElement.appendChild(cardContent);
@@ -94,10 +97,18 @@ function displayBooks() {
   );
   library.replaceChildren(...childrenNodes);
 }
-
+function removeCard(event) {
+  const targetCard = event.currentTarget.parentNode.parentNode;
+  deleteFromLibrary(targetCard.dataset.index);
+  displayBooks();
+}
+function deleteFromLibrary(indexOfElement) {
+  myLibrary.splice(indexOfElement, 1);
+}
 addBookButton.addEventListener("click", () => bookModal.showModal());
 closeModal.addEventListener("click", () => bookModal.close());
 submitButtonModal.addEventListener("click", readForm);
+
 //implement form validation
 function readForm(e) {
   const bookTitle = document.querySelector("#title").value;
