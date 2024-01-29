@@ -102,9 +102,14 @@ function removeCard(event) {
   const targetCard = event.currentTarget.parentNode.parentNode;
   deleteFromLibrary(targetCard.dataset.index);
   displayBooks();
+  hideTrashIcon();
 }
 function deleteFromLibrary(indexOfElement) {
   myLibrary.splice(indexOfElement, 1);
+}
+function hideTrashIcon() {
+  const allTrashIcons = document.querySelectorAll(".card-header-icon");
+  allTrashIcons.forEach((el) => el.classList.add("hidden"));
 }
 addBookButton.addEventListener("click", () => bookModal.showModal());
 closeModal.addEventListener("click", () => bookModal.close());
