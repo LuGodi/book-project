@@ -24,10 +24,14 @@ function Book(title, author, pages, readPages, read, color) {
 }
 
 Book.prototype.createBookCard = function () {
-  function createIconSpan(value, iconText) {
+  function createIconSpan(value, iconText, footer = true) {
     const spanContainer = document.createElement("span");
-    spanContainer.className = "card-footer-icon";
-    spanContainer.textContent = value;
+    if (footer) {
+      spanContainer.className = "card-footer-icon";
+      spanContainer.textContent = value;
+    } else {
+      spanContainer.className = "card-header-icon";
+    }
     const spanIcon = document.createElement("span");
     spanIcon.className = "material-symbols-outlined";
     spanIcon.textContent = iconText;
@@ -55,6 +59,7 @@ Book.prototype.createBookCard = function () {
     createIconSpan(this.pages, "auto_stories")
   );
   cardHeader.textContent = this.title;
+  cardHeader.appendChild(createIconSpan("", "more_vert", false));
   cardContent.textContent = this.read ? "Read" : "Not read yet";
   bookElement.appendChild(cardHeader);
   bookElement.appendChild(cardContent);

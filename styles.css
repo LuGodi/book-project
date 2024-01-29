@@ -154,11 +154,12 @@ div.library {
   min-height: 70vh;
   gap: 2rem;
   padding: 30px;
+  flex-wrap: wrap;
 }
 /* add progress bar to books */
 div.library div.card {
-  height: 230px;
-  width: 170px;
+  height: 250px;
+  width: 200px;
   background-color: var(--library-card-bg-color);
   color: var(--library-card-font-color);
   border-radius: 3px;
@@ -177,6 +178,9 @@ div.card-header {
   font-family: "Shadows Into Light", cursive;
   font-size: 1.5rem;
   background-color: rgba(255, 255, 255, 0.5);
+}
+span.card-header-icon {
+  align-self: flex-end;
 }
 div.card-content {
   flex-grow: 1;
