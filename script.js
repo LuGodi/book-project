@@ -5,7 +5,7 @@ const bookModal = document.querySelector("#add-book-modal");
 const closeModal = document.querySelector("#close-modal-button");
 const submitButtonModal = document.querySelector("#submit-button");
 const addBookForm = document.querySelector("#add-book-form");
-const removeButton = document.querySelectorAll(".card-header-icon");
+const removeButton = document.querySelector(".remove-book");
 
 function Book(title, author, pages, readPages, read, color) {
   this.title = title;
@@ -32,6 +32,7 @@ Book.prototype.createBookCard = function () {
       spanContainer.textContent = value;
     } else {
       spanContainer.className = "card-header-icon";
+      spanContainer.classList.add("hidden");
     }
     const spanIcon = document.createElement("span");
     spanIcon.className = "material-symbols-outlined";
@@ -108,7 +109,10 @@ function deleteFromLibrary(indexOfElement) {
 addBookButton.addEventListener("click", () => bookModal.showModal());
 closeModal.addEventListener("click", () => bookModal.close());
 submitButtonModal.addEventListener("click", readForm);
-
+removeButton.addEventListener("click", (e) => {
+  const allTrashIcons = document.querySelectorAll(".card-header-icon");
+  allTrashIcons.forEach((el) => el.classList.toggle("hidden"));
+});
 //implement form validation
 function readForm(e) {
   const bookTitle = document.querySelector("#title").value;
@@ -147,9 +151,9 @@ const book1 = new Book("Midnight Library", "Matt Huang", "409", "409", true);
 const book2 = new Book("Harry Potter", "Jk Rowling", "200", "100", false);
 const book3 = new Book("Im tired", "myself", "1", "1", true);
 //DONE ability to set background-color for book
-//TODO set read status
+//IN PROGRESS set read status
 //DONE set data-attr to be able to refer to a book
-//TODO add ability to delete cards
+//DONE add ability to delete cards
 //TODO for each read card increment counter
 //TODO set 3 states for cards {read, not started yet, finished}
 //TODO define layout for cards

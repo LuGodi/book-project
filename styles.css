@@ -182,6 +182,19 @@ div.card-header {
 span.card-header-icon {
   align-self: flex-end;
   cursor: pointer;
+  display: inline;
+}
+span.hidden {
+  display: none;
+  animation: none;
+}
+.card:has(.card-header > .card-header-icon:not(.hidden)) {
+  animation: shaking;
+  animation-iteration-count: infinite;
+  animation-duration: 0.2s;
+}
+.card.hidden {
+  animation: none;
 }
 .card-header-icon span.material-symbols-outlined {
   color: black;
@@ -208,4 +221,20 @@ span.card-footer-icon {
 }
 .card-footer-icon span.material-symbols-outlined {
   color: rgb(78, 78, 78);
+}
+
+@keyframes shaking {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
 }
