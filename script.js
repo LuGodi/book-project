@@ -60,7 +60,7 @@ Book.prototype.createBookCard = function () {
     createIconSpan(this.pages, "auto_stories")
   );
   cardHeader.textContent = this.title;
-  const headerOptionsIcon = createIconSpan("", "more_vert", false);
+  const headerOptionsIcon = createIconSpan("", "delete", false);
   headerOptionsIcon.addEventListener("click", removeCard);
   cardHeader.appendChild(headerOptionsIcon);
   cardContent.textContent = this.read ? "Read" : "Not read yet";

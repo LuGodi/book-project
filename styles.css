@@ -183,6 +183,9 @@ span.card-header-icon {
   align-self: flex-end;
   cursor: pointer;
 }
+.card-header-icon span.material-symbols-outlined {
+  color: black;
+}
 div.card-content {
   flex-grow: 1;
 }
@@ -203,6 +206,6 @@ span.card-footer-icon {
   font-family: "Bebas Neue", sans-serif;
   color: black;
 }
-span.material-symbols-outlined {
+.card-footer-icon span.material-symbols-outlined {
   color: rgb(78, 78, 78);
 }
