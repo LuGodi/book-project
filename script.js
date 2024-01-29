@@ -111,7 +111,11 @@ function hideTrashIcon() {
   const allTrashIcons = document.querySelectorAll(".card-header-icon");
   allTrashIcons.forEach((el) => el.classList.add("hidden"));
 }
-addBookButton.addEventListener("click", () => bookModal.showModal());
+addBookButton.addEventListener("click", () => {
+  //Make sure to leave deletion mode in case user enters it before adding
+  hideTrashIcon();
+  bookModal.showModal();
+});
 closeModal.addEventListener("click", () => bookModal.close());
 submitButtonModal.addEventListener("click", readForm);
 removeButton.addEventListener("click", (e) => {
