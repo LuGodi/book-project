@@ -1,5 +1,4 @@
 const myLibrary = [];
-const myLibraryCardElements = [];
 const library = document.querySelector(".library");
 const addBookButton = document.querySelector(".add-book");
 const bookModal = document.querySelector("#add-book-modal");
@@ -14,6 +13,9 @@ function Book(title, author, pages, readPages, read, color) {
   this.readPages = readPages;
   this.read = read;
   this.bookColor = color;
+  this.bookElement = undefined;
+  this.dataAttr = undefined;
+  this.bookElement = undefined;
   this.info = function () {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${
       this.read ? "read" : "not read yet"
@@ -37,9 +39,7 @@ Book.prototype.createBookCard = function () {
     spanContainer.appendChild(spanIcon);
     return spanContainer;
   }
-  function addBookElementToCardLibrary(bookElement) {
-    myLibraryCardElements.push(bookElement);
-  }
+
   function setBookColor(bookObject, bookElement) {
     const rootEl = document.querySelector(":root");
     const chosenColor = getComputedStyle(rootEl).getPropertyValue(
@@ -65,7 +65,7 @@ Book.prototype.createBookCard = function () {
 
   bookElement.className = "card";
   setBookColor(this, bookElement);
-  addBookElementToCardLibrary(bookElement);
+  this.bookElement = bookElement;
 };
 Book.prototype.addBookToLibrary = function () {
   myLibrary.push(this);
@@ -76,7 +76,18 @@ Book.prototype.addBook = function () {
   this.createBookCard();
 };
 function displayBooks() {
-  library.replaceChildren(...myLibraryCardElements);
+  const childrenNodes = myLibrary.reduce(
+    (bookElList, currentBook, currIndex) => {
+      if (currentBook.bookElement) {
+        currentBook.dataAttr = currIndex;
+        currentBook.bookElement.dataset.index = currIndex;
+        bookElList.push(currentBook.bookElement);
+      }
+      return bookElList;
+    },
+    []
+  );
+  library.replaceChildren(...childrenNodes);
 }
 
 addBookButton.addEventListener("click", () => bookModal.showModal());
