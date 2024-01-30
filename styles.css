@@ -201,6 +201,29 @@ span.hidden {
 }
 div.card-content {
   flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 20px;
+}
+div.card[data-read="read"]
+  .card-content
+  > span.material-symbols-outlined::after {
+  content: "lock";
+  font-size: 50px;
+}
+div.card[data-read="pending"]
+  .card-content
+  > span.material-symbols-outlined::after {
+  content: "hourglass";
+  font-size: 50px;
+}
+div.card[data-read="inProgress"].card-content
+  > span.material-symbols-outlined::after {
+  content: "cloack_loader_10";
+  font-size: 50px;
 }
 
 div.card-footer {

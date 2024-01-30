@@ -12,7 +12,7 @@ function Book(title, author, pages, readPages, read, color) {
   this.author = author;
   this.pages = pages;
   this.readPages = readPages;
-  this.read = false;
+  this.read = read;
   this.bookColor = color;
   this.bookElement = undefined;
   this.dataAttr = undefined;
@@ -52,6 +52,7 @@ Book.prototype.createBookCard = function () {
   const bookElement = document.createElement("div");
   const cardHeader = document.createElement("div");
   const cardContent = document.createElement("div");
+  const cardContentStatusSpan = document.createElement("span");
   const cardFooter = document.createElement("div");
   cardHeader.className = "card-header";
   cardContent.className = "card-content";
@@ -64,17 +65,28 @@ Book.prototype.createBookCard = function () {
   const headerOptionsIcon = createIconSpan("", "delete", false);
   headerOptionsIcon.addEventListener("click", removeCard);
   cardHeader.appendChild(headerOptionsIcon);
-  cardContent.textContent = this.read ? "Read" : "Not read yet";
+  cardContent.textContent = this.read;
+  cardContentStatusSpan.className = "material-symbols-outlined";
+  cardContent.appendChild(cardContentStatusSpan);
+
   bookElement.appendChild(cardHeader);
   bookElement.appendChild(cardContent);
   bookElement.appendChild(cardFooter);
 
   bookElement.className = "card";
+  this.setReadingStatus(this.read, bookElement);
   setBookColor(this, bookElement);
   this.bookElement = bookElement;
 };
 Book.prototype.readToggle = function () {
   this.read = this.read === true ? false : true;
+};
+Book.prototype.setReadingStatus = function (status, bookElement) {
+  if (status !== "pending" && status !== "inProgress" && status !== "read") {
+    throw new Error("must be pending, inProgress or read");
+  }
+  this.read = status;
+  bookElement.dataset.read = status;
 };
 Book.prototype.addBookToLibrary = function () {
   myLibrary.push(this);
@@ -132,6 +144,7 @@ function readForm(e) {
     '[name="book-color"]:checked'
   ).value;
   const bookReadBool = document.querySelector("#read-checkbox").checked;
+  const bookReadStatus = bookReadBool ? "read" : "pending";
   console.log(
     bookTitle,
     bookAuthor,
@@ -145,7 +158,7 @@ function readForm(e) {
     bookAuthor,
     bookTotalPages,
     bookReadPages,
-    bookReadBool,
+    bookReadStatus,
     bookColorChoice
   );
   newBook.addBook();
@@ -156,9 +169,9 @@ function readForm(e) {
 }
 //get values from the form
 
-const book1 = new Book("Midnight Library", "Matt Huang", "409", "409", true);
-const book2 = new Book("Harry Potter", "Jk Rowling", "200", "100", false);
-const book3 = new Book("Im tired", "myself", "1", "1", true);
+const book1 = new Book("Midnight Library", "Matt Huang", "409", "409", "read");
+const book2 = new Book("Harry Potter", "Jk Rowling", "200", "100", "pending");
+const book3 = new Book("Im tired", "myself", "1", "1", "pending");
 //DONE ability to set background-color for book
 //IN PROGRESS set read status
 //DONE set data-attr to be able to refer to a book
