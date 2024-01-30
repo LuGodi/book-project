@@ -190,12 +190,12 @@ const book1 = new Book("Midnight Library", "Matt Huang", "409", "409", "read");
 const book2 = new Book("Harry Potter", "Jk Rowling", "200", "100", "pending");
 const book3 = new Book("Im tired", "myself", "1", "1", "pending");
 //DONE ability to set background-color for book
-//IN PROGRESS set read status
+//DONE set read status
 //DONE set data-attr to be able to refer to a book
 //DONE add ability to delete cards
-//TODO for each read card increment counter
+//DONE for each read card increment counter
 //TODO set 3 states for cards {read, not started yet, finished}
-//TODO define layout for cards
+//DONE define layout for cards
 
 book1.addBook();
 book2.addBook();
