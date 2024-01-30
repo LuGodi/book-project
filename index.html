@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Book Card Library</title>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="styles.css" />
     <style>
@@ -17,7 +17,9 @@
   <body>
     <div class="container">
       <div class="header">
-        <button class="finished-books">Finished Books <br />0</button>
+        <button class="finished-books">
+          Finished Books <br /><span class="finished-books-counter">0</span>
+        </button>
         <button class="add-book">Add Book</button>
         <button class="remove-book">Remove Book</button>
         <button class="remove-all-books">Remove ALL Books</button>
@@ -25,7 +27,7 @@
       <div class="library">
         <div class="card">
           <div class="card-header"></div>
-          <div class="card-content material-symbols-outlined"></div>
+          <div class="card-content"></div>
           <div class="card-footer">
             <span class="card-footer-icon"
               ><span class="material-symbols-outlined">

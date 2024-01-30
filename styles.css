@@ -208,6 +208,14 @@ div.card-content {
   font-family: "Bebas Neue", sans-serif;
   font-size: 20px;
 }
+/* cant get the data attribute from the parent... 
+div.card .card-content::before {
+  content: "status" attr(data-read);
+  display: block;
+  width: 50px;
+  height: 50px;
+  font-size: 10px;
+} */
 div.card[data-read="read"]
   .card-content
   > span.material-symbols-outlined::after {
@@ -224,6 +232,15 @@ div.card[data-read="inProgress"].card-content
   > span.material-symbols-outlined::after {
   content: "cloack_loader_10";
   font-size: 50px;
+}
+div.card[data-read="pending"] .card-content::before {
+  content: "Pending";
+}
+div.card[data-read="read"] .card-content::before {
+  content: "Read";
+}
+div.card[data-read="inProgress"] .card-content:before {
+  content: "In progress...";
 }
 
 div.card-footer {

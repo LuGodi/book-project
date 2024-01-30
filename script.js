@@ -6,6 +6,9 @@ const closeModal = document.querySelector("#close-modal-button");
 const submitButtonModal = document.querySelector("#submit-button");
 const addBookForm = document.querySelector("#add-book-form");
 const removeButton = document.querySelector(".remove-book");
+const finishedBooksCounterSpan = document.querySelector(
+  ".finished-books-counter"
+);
 
 function Book(title, author, pages, readPages, read, color) {
   this.title = title;
@@ -65,13 +68,15 @@ Book.prototype.createBookCard = function () {
   const headerOptionsIcon = createIconSpan("", "delete", false);
   headerOptionsIcon.addEventListener("click", removeCard);
   cardHeader.appendChild(headerOptionsIcon);
-  cardContent.textContent = this.read;
   cardContentStatusSpan.className = "material-symbols-outlined";
   cardContent.appendChild(cardContentStatusSpan);
+  cardContent.addEventListener("click", (e) => {
+    const targetBook = e.currentTarget.parentNode;
+    const desiredStatus = this.read === "read" ? "pending" : "read";
+    this.setReadingStatus(desiredStatus, targetBook);
+  });
 
-  bookElement.appendChild(cardHeader);
-  bookElement.appendChild(cardContent);
-  bookElement.appendChild(cardFooter);
+  bookElement.append(cardHeader, cardContent, cardFooter);
 
   bookElement.className = "card";
   this.setReadingStatus(this.read, bookElement);
@@ -87,6 +92,8 @@ Book.prototype.setReadingStatus = function (status, bookElement) {
   }
   this.read = status;
   bookElement.dataset.read = status;
+  countFinishedBooks();
+  // I can just change the status on server side and then run the displayBooks but its going to iterate over everytime you click a new book
 };
 Book.prototype.addBookToLibrary = function () {
   myLibrary.push(this);
@@ -109,12 +116,21 @@ function displayBooks() {
     []
   );
   library.replaceChildren(...childrenNodes);
+  countFinishedBooks();
 }
 function removeCard(event) {
   const targetCard = event.currentTarget.parentNode.parentNode;
   deleteFromLibrary(targetCard.dataset.index);
   displayBooks();
   hideTrashIcon();
+}
+function countFinishedBooks() {
+  finishedBooksCounterSpan.textContent = myLibrary.reduce((counter, el) => {
+    if (el.read === "read") {
+      counter++;
+    }
+    return counter;
+  }, 0);
 }
 function deleteFromLibrary(indexOfElement) {
   myLibrary.splice(indexOfElement, 1);
@@ -134,6 +150,7 @@ removeButton.addEventListener("click", (e) => {
   const allTrashIcons = document.querySelectorAll(".card-header-icon");
   allTrashIcons.forEach((el) => el.classList.toggle("hidden"));
 });
+
 //implement form validation
 function readForm(e) {
   const bookTitle = document.querySelector("#title").value;
