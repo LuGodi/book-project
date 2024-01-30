@@ -64,6 +64,22 @@ legend {
 input[type="number"] {
   width: 25%;
 }
+input:required {
+  box-shadow: 0px 0px 10px 2px #ff7070;
+  position: relative;
+}
+div:has(input:required) {
+  position: relative;
+}
+div:has(> input:required)::before {
+  content: "Required";
+
+  color: black;
+  position: absolute;
+  top: 6px;
+  left: 130px;
+  font-size: 10px;
+}
 input#color {
   border: none;
   outline: none;
@@ -170,7 +186,7 @@ div.library div.card {
 }
 div.card-header {
   border-bottom: 3px solid black;
-  min-height: 2.5rem;
+  min-height: 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -9,6 +9,7 @@ const removeButton = document.querySelector(".remove-book");
 const finishedBooksCounterSpan = document.querySelector(
   ".finished-books-counter"
 );
+const removeAllCardsButton = document.querySelector(".remove-all-books");
 
 function Book(title, author, pages, readPages, read, color) {
   this.title = title;
@@ -83,9 +84,6 @@ Book.prototype.createBookCard = function () {
   setBookColor(this, bookElement);
   this.bookElement = bookElement;
 };
-Book.prototype.readToggle = function () {
-  this.read = this.read === true ? false : true;
-};
 Book.prototype.setReadingStatus = function (status, bookElement) {
   if (status !== "pending" && status !== "inProgress" && status !== "read") {
     throw new Error("must be pending, inProgress or read");
@@ -150,10 +148,18 @@ removeButton.addEventListener("click", (e) => {
   const allTrashIcons = document.querySelectorAll(".card-header-icon");
   allTrashIcons.forEach((el) => el.classList.toggle("hidden"));
 });
+removeAllCardsButton.addEventListener("click", (e) => {
+  library.replaceChildren();
+  myLibrary.splice(0, myLibrary.length);
+  countFinishedBooks();
+});
 
 //implement form validation
 function readForm(e) {
   const bookTitle = document.querySelector("#title").value;
+  if (!bookTitle) {
+    return;
+  }
   const bookAuthor = document.querySelector("#author").value;
   const bookTotalPages = document.querySelector("#pages").value;
   const bookReadPages = document.querySelector("#pages-read").value;

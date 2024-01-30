@@ -43,19 +43,19 @@
     <dialog id="add-book-modal">
       <div class="dialog-border">
         <h2>Add a new Book</h2>
-        <form action="/" method="get" id="add-book-form">
+        <form action="" method="post" id="add-book-form">
           <div>
             <label for="title">Title</label>
             <input
               id="title"
               type="text"
               name="title"
-              required
-              placeholder="Twilight" />
+              placeholder="Twilight"
+              required />
           </div>
           <div>
             <label for="author">Author</label>
-            <input type="text" id="author" name="author" />
+            <input type="text" id="author" name="author" required />
           </div>
           <div>
             <label for="pages">How many pages?</label>
@@ -104,7 +104,7 @@
               value="read-book" />
           </div>
           <div class="form-buttons">
-            <button type="button" id="submit-button">Submit</button
+            <button type="submit" id="submit-button">Submit</button
             ><button id="close-modal-button">Close</button>
           </div>
         </form>
