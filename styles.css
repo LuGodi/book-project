@@ -232,6 +232,9 @@ div.card .card-content::before {
   height: 50px;
   font-size: 10px;
 } */
+div.card span.material-symbols-outlined {
+  pointer-events: none;
+}
 div.card[data-read="read"]
   .card-content
   > span.material-symbols-outlined::after {

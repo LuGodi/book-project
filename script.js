@@ -67,15 +67,9 @@ Book.prototype.createBookCard = function () {
   );
   cardHeader.textContent = this.title;
   const headerOptionsIcon = createIconSpan("", "delete", false);
-  headerOptionsIcon.addEventListener("click", removeCard);
   cardHeader.appendChild(headerOptionsIcon);
   cardContentStatusSpan.className = "material-symbols-outlined";
   cardContent.appendChild(cardContentStatusSpan);
-  cardContent.addEventListener("click", (e) => {
-    const targetBook = e.currentTarget.parentNode;
-    const desiredStatus = this.read === "read" ? "pending" : "read";
-    this.setReadingStatus(desiredStatus, targetBook);
-  });
 
   bookElement.append(cardHeader, cardContent, cardFooter);
 
@@ -93,11 +87,15 @@ Book.prototype.setReadingStatus = function (status, bookElement) {
   countFinishedBooks();
   // I can just change the status on server side and then run the displayBooks but its going to iterate over everytime you click a new book
 };
+Book.prototype.toggleReadingStatus = function (bookElement) {
+  const newBookStatus =
+    bookElement.dataset.read === "read" ? "pending" : "read";
+  this.setReadingStatus(newBookStatus, bookElement);
+};
 Book.prototype.addBookToLibrary = function () {
   myLibrary.push(this);
 };
 Book.prototype.addBook = function () {
-  console.log(this);
   this.addBookToLibrary();
   this.createBookCard();
 };
@@ -116,8 +114,7 @@ function displayBooks() {
   library.replaceChildren(...childrenNodes);
   countFinishedBooks();
 }
-function removeCard(event) {
-  const targetCard = event.currentTarget.parentNode.parentNode;
+function removeCard(targetCard) {
   deleteFromLibrary(targetCard.dataset.index);
   displayBooks();
   hideTrashIcon();
@@ -152,6 +149,21 @@ removeAllCardsButton.addEventListener("click", (e) => {
   library.replaceChildren();
   myLibrary.splice(0, myLibrary.length);
   countFinishedBooks();
+});
+library.addEventListener("click", (e) => {
+  const targetBookElement = e.target.parentNode;
+  const targetBookElementInDatabase =
+    myLibrary[targetBookElement.dataset.index];
+  switch (target.className) {
+    case "card-content":
+      //change on the Dom so we dont have to load all books from database for one change
+      targetBookElementInDatabase.toggleReadingStatus(targetBookElement);
+      break;
+    case "card-header-icon":
+      removeCard(targetBookElement);
+      break;
+    default:
+  }
 });
 
 //implement form validation
