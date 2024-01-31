@@ -154,7 +154,7 @@ library.addEventListener("click", (e) => {
   const targetBookElement = e.target.parentNode;
   const targetBookElementInDatabase =
     myLibrary[targetBookElement.dataset.index];
-  switch (target.className) {
+  switch (e.target.className) {
     case "card-content":
       //change on the Dom so we dont have to load all books from database for one change
       targetBookElementInDatabase.toggleReadingStatus(targetBookElement);
