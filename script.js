@@ -11,94 +11,98 @@ const finishedBooksCounterSpan = document.querySelector(
 );
 const removeAllCardsButton = document.querySelector(".remove-all-books");
 
-function Book(title, author, pages, readPages, read, color) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.readPages = readPages;
-  this.read = read;
-  this.bookColor = color;
-  this.bookElement = undefined;
-  this.dataAttr = undefined;
-  this.bookElement = undefined;
-  this.info = function () {
+class Book {
+  bookElement;
+  dataAttr;
+  constructor(title, author, pages, readPages, read, color) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.readpages = readPages;
+    this.read = read;
+    this.bookColor = color;
+  }
+
+  info() {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${
       this.read ? "read" : "not read yet"
     }`;
-  };
+  }
+
+  createBookCard() {
+    function createIconSpan(value, iconText, footer = true) {
+      const spanContainer = document.createElement("span");
+      if (footer) {
+        spanContainer.className = "card-footer-icon";
+        spanContainer.textContent = value;
+      } else {
+        spanContainer.className = "card-header-icon";
+        spanContainer.classList.add("hidden");
+      }
+      const spanIcon = document.createElement("span");
+      spanIcon.className = "material-symbols-outlined";
+      spanIcon.textContent = iconText;
+
+      spanContainer.appendChild(spanIcon);
+      return spanContainer;
+    }
+
+    function setBookColor(bookObject, bookElement) {
+      const rootEl = document.querySelector(":root");
+      const chosenColor = getComputedStyle(rootEl).getPropertyValue(
+        `--book-bg-color-${bookObject.bookColor}`
+      );
+      bookElement.style.setProperty("--library-card-bg-color", chosenColor);
+    }
+    const bookElement = document.createElement("div");
+    const cardHeader = document.createElement("div");
+    const cardContent = document.createElement("div");
+    const cardContentStatusSpan = document.createElement("span");
+    const cardFooter = document.createElement("div");
+    cardHeader.className = "card-header";
+    cardContent.className = "card-content";
+    cardFooter.className = "card-footer";
+    cardFooter.append(
+      createIconSpan(this.readPages, "bookmark_add"),
+      createIconSpan(this.pages, "auto_stories")
+    );
+    cardHeader.textContent = this.title;
+    const headerOptionsIcon = createIconSpan("", "delete", false);
+    cardHeader.appendChild(headerOptionsIcon);
+    cardContentStatusSpan.className = "material-symbols-outlined";
+    cardContent.appendChild(cardContentStatusSpan);
+
+    bookElement.append(cardHeader, cardContent, cardFooter);
+
+    bookElement.className = "card";
+    this.setReadingStatus(this.read, bookElement);
+    setBookColor(this, bookElement);
+    this.bookElement = bookElement;
+  }
+
+  setReadingStatus(status, bookElement) {
+    if (status !== "pending" && status !== "inProgress" && status !== "read") {
+      throw new Error("must be pending, inProgress or read");
+    }
+    this.read = status;
+    bookElement.dataset.read = status;
+    countFinishedBooks();
+  }
+
+  toggleReadingStatus(bookElement) {
+    const newBookStatus =
+      bookElement.dataset.read === "read" ? "pending" : "read";
+    this.setReadingStatus(newBookStatus, bookElement);
+  }
+  addBookToLibrary() {
+    myLibrary.push(this);
+  }
+  addBook() {
+    this.addBookToLibrary();
+    this.createBookCard();
+  }
 }
 
-Book.prototype.createBookCard = function () {
-  function createIconSpan(value, iconText, footer = true) {
-    const spanContainer = document.createElement("span");
-    if (footer) {
-      spanContainer.className = "card-footer-icon";
-      spanContainer.textContent = value;
-    } else {
-      spanContainer.className = "card-header-icon";
-      spanContainer.classList.add("hidden");
-    }
-    const spanIcon = document.createElement("span");
-    spanIcon.className = "material-symbols-outlined";
-    spanIcon.textContent = iconText;
-
-    spanContainer.appendChild(spanIcon);
-    return spanContainer;
-  }
-
-  function setBookColor(bookObject, bookElement) {
-    const rootEl = document.querySelector(":root");
-    const chosenColor = getComputedStyle(rootEl).getPropertyValue(
-      `--book-bg-color-${bookObject.bookColor}`
-    );
-    bookElement.style.setProperty("--library-card-bg-color", chosenColor);
-  }
-  const bookElement = document.createElement("div");
-  const cardHeader = document.createElement("div");
-  const cardContent = document.createElement("div");
-  const cardContentStatusSpan = document.createElement("span");
-  const cardFooter = document.createElement("div");
-  cardHeader.className = "card-header";
-  cardContent.className = "card-content";
-  cardFooter.className = "card-footer";
-  cardFooter.append(
-    createIconSpan(this.readPages, "bookmark_add"),
-    createIconSpan(this.pages, "auto_stories")
-  );
-  cardHeader.textContent = this.title;
-  const headerOptionsIcon = createIconSpan("", "delete", false);
-  cardHeader.appendChild(headerOptionsIcon);
-  cardContentStatusSpan.className = "material-symbols-outlined";
-  cardContent.appendChild(cardContentStatusSpan);
-
-  bookElement.append(cardHeader, cardContent, cardFooter);
-
-  bookElement.className = "card";
-  this.setReadingStatus(this.read, bookElement);
-  setBookColor(this, bookElement);
-  this.bookElement = bookElement;
-};
-Book.prototype.setReadingStatus = function (status, bookElement) {
-  if (status !== "pending" && status !== "inProgress" && status !== "read") {
-    throw new Error("must be pending, inProgress or read");
-  }
-  this.read = status;
-  bookElement.dataset.read = status;
-  countFinishedBooks();
-  // I can just change the status on server side and then run the displayBooks but its going to iterate over everytime you click a new book
-};
-Book.prototype.toggleReadingStatus = function (bookElement) {
-  const newBookStatus =
-    bookElement.dataset.read === "read" ? "pending" : "read";
-  this.setReadingStatus(newBookStatus, bookElement);
-};
-Book.prototype.addBookToLibrary = function () {
-  myLibrary.push(this);
-};
-Book.prototype.addBook = function () {
-  this.addBookToLibrary();
-  this.createBookCard();
-};
 function displayBooks() {
   const childrenNodes = myLibrary.reduce(
     (bookElList, currentBook, currIndex) => {
