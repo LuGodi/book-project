@@ -18,7 +18,7 @@ class Book {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.readpages = readPages;
+    this.readPages = readPages;
     this.read = read;
     this.bookColor = color;
   }
