@@ -144,7 +144,7 @@ addBookButton.addEventListener("click", () => {
   bookModal.showModal();
 });
 closeModal.addEventListener("click", () => bookModal.close());
-submitButtonModal.addEventListener("click", readForm);
+addBookForm.addEventListener("submit", readForm);
 removeButton.addEventListener("click", (e) => {
   const allTrashIcons = document.querySelectorAll(".card-header-icon");
   allTrashIcons.forEach((el) => el.classList.toggle("hidden"));

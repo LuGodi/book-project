@@ -59,11 +59,16 @@
           </div>
           <div>
             <label for="pages">How many pages?</label>
-            <input type="number" id="pages" name="pages" />
+            <input type="number" id="pages" name="pages" pattern="\d" />
           </div>
           <div>
             <label for="pages-read">How many pages have you read?</label>
-            <input type="number" name="pages_read" id="pages-read" />
+            <input
+              type="number"
+              name="pages_read"
+              id="pages-read"
+              pattern="\d"
+              value="0" />
           </div>
           <div class="book-color">
             <fieldset class="book-color-fieldset">
